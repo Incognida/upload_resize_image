@@ -16,7 +16,6 @@ def model_form_upload(request):
     if request.method == 'POST':
         form = PictureForm(request.POST, request.FILES)
         if form.is_valid():
-            # form.save() - Здесь была дичь
             return redirect('home')
     else:
         form = PictureForm()
