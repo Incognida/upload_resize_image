@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for error in errors %}
+      <li>
+        <p>{{ error }}</p>
+      </li>
+  {% endfor %}
+
+  <form method="post" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+  {% if picture_url %}
+    <li>
+      <img src="{{ picture_url }}">
+    </li>
+  {% endif %}
+
+
+  <p><a href="{% url 'home' %}">Return to home</a></p>
+{% endblock %}
