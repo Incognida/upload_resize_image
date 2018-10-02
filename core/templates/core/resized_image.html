@@ -10,7 +10,7 @@
   <form method="post" enctype="application/x-www-form-urlencoded">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button type="submit">Submit</button>
   </form>
 
   {% if picture_url %}
