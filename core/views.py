@@ -41,6 +41,12 @@ def resize_image(request, fname):
         size = request.GET.get('size')
         width = request.GET.get('width')
         height = request.GET.get('height')
+        try:
+            size = int(request.GET.get('size') if size else 0)
+            width = int(request.GET.get('width') if width else 0)
+            height = int(request.GET.get('height') if height else 0)
+        except ValueError:
+            return render(request, template_name, {'errors': 'you have to provide integers when u resize'})
         form = ResizeForm()
 
     picture = Picture.objects.filter(image=fname).first()

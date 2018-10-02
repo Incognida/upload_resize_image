@@ -1,8 +1,10 @@
+import hashlib
 import os
 from os.path import splitext
 
 from PIL import Image
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 
 def resize(picture, width=None, height=None, size=None):
@@ -33,5 +35,13 @@ def resize(picture, width=None, height=None, size=None):
 
 
 def check_image_extension(name):
-    if splitext(name)[-1] not in ('.gif', '.jpg', '.jpeg', '.png'):
+    extension = splitext(name)[-1]
+    if extension not in ('.gif', '.jpg', '.jpeg', '.png'):
         raise ValidationError("Not valid format")
+    return extension
+
+
+def hash_image(name):
+    name_with_salt = name + settings.SECRET_KEY
+    encrypted = hashlib.sha512(name_with_salt.encode()).hexdigest()
+    return encrypted
